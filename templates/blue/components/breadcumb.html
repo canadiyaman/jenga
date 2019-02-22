@@ -1,0 +1,11 @@
+<div class="container">{% load i18n %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/">{% trans "Home" %}</a></li>
+            {% for breadcumb in breadcumbs %}
+                <li class="breadcrumb-item active" aria-current="page"><a
+                        href="{{ breadcumb.url }}">{{ breadcumb.title }}</a></li>
+            {% endfor %}
+        </ol>
+    </nav>
+</div>

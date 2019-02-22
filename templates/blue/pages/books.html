@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% load i18n traditional_tags %}
+{% block title %}My Awsome Books{% endblock %}
+{% block content %}
+    {% books_breadcumbs as breadcumbs %}
+    {% include "components/breadcumb.html" with breadcumbs=breadcumbs %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>{% trans "Recent Books" %}</h2>
+            </div>
+        </div>
+        {% include "components/book_list.html" with books=books %}
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load i18n %}
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">{% trans "Image" %}</th>
+                <th scope="col">{% trans "Title" %}</th>
+                <th scope="col">Isbn13</th>
+                <th scope="col">{% trans "Details" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for book in books %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><img height="50" width="40" src="{{ book.image }}" alt=""></td>
+                    <td>{{ book.title }}<br>
+                        <small>{{ book.subtitle|truncatechars:50 }}</small>
+                    </td>
+                    <td>{{ book.isbn13 }}</td>
+                    <td><a href="{% url "traditional:book" book.isbn13 %}">Details</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
