@@ -9,9 +9,9 @@ def home(request):
 
 
 def search(request):
-    q = request.GET.get('q', "")
+    q, page = request.GET.get('q', ""), request.GET.get('page', 1)
     adapter = get_adapter()
-    results = adapter.search(q)
+    results = adapter.search(q, page)
     return render(request, 'pages/search.html', results)
 
 
@@ -23,5 +23,6 @@ def book(request, isbn13):
 
 def books(request):
     adapter = get_adapter()
-    result = adapter.books()
+    page = request.GET.get('page', 1)
+    result = adapter.books(page)
     return render(request, 'pages/books.html', result)

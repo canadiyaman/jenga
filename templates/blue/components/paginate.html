@@ -1,0 +1,44 @@
+{% load i18n %}
+<div class="row">
+    <div class="col-lg-12">
+        <nav class="d-flex justify-content-center" aria-label="Book paginate">
+            <ul class="pagination">
+                {% if objects.has_previous %}
+                    <li class="page-item"><a class="page-link" href="#"
+                                             onclick=changeUrlParam({{ objects.previous_page_number }})>{% trans "Previous" %}</a>
+                    </li>
+                {% endif %}
+                {% for page_number in objects.paginator.page_range %}
+                    {% if objects.paginator.orphans == page_number %}
+                        <li class="page-item active">
+                            <a class="page-link" href="#">{{ page_number }} <span class="sr-only">(current)</span></a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="#"
+                                                 onclick=changeUrlParam({{ page_number }})>{{ page_number }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if objects.has_next %}
+                    <li class="page-item"><a class="page-link" href="#"
+                                             onclick=changeUrlParam({{ objects.next_page_number }})>{% trans "Next" %}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+<script>
+    function changeUrlParam(param) {
+        var url = new URL(window.location.href);
+        var queryString = url.search;
+        var searchParams = new URLSearchParams(queryString);
+
+        searchParams.set('page', param);
+
+        url.search = searchParams.toString();
+        var newUrl = url.toString();
+
+        window.location.replace(newUrl);
+    }
+</script>

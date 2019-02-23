@@ -131,3 +131,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'user.User'
+
+DEFAULT_PER_PAGE_LIMIT = env.int('DEFAULT_PER_PAGE_LIMIT', 5)

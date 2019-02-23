@@ -1,5 +1,7 @@
 import requests
 
+from django.conf import settings
+from django.core.paginator import Paginator
 from django.http import Http404
 
 
@@ -35,11 +37,17 @@ class Adapter(object):
     def __init__(self):
         self.client = Client()
 
-    def search(self, q):
+    def paginate(self, objects, page):
+        paginator = Paginator(objects, settings.DEFAULT_PER_PAGE_LIMIT, page)
+        return paginator.page(page)
+
+    def search(self, q, page=1, paginated=True):
         response = self.client.search(q)
+        books = response['books']
+        if paginated:
+            books = self.paginate(books, page)
         return {
-            "books": response['books'],
-            "page": response['page']
+            "books": books
         }
 
     def book(self, isbn13):
@@ -48,11 +56,13 @@ class Adapter(object):
             "book": response
         }
 
-    def books(self):
+    def books(self, page=1, paginated=True):
         response = self.client.books()
+        books = response['books']
+        if paginated:
+            books = self.paginate(books, page)
         return {
-            "books": response['books'],
-            "total": response['total']
+            "books": books
         }
 
 
