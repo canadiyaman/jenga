@@ -2,9 +2,8 @@ from django.http.response import JsonResponse
 from django.shortcuts import render
 
 from apps.bookmark.models import Bookmark
-from apps.helpers import get_adapter
-from apps.traditional.serializers import BookListSerializer, BookmarkListSerializer, \
-    BookSerializer
+from apps.helpers import get_adapter, _bookmarks
+from apps.traditional.serializers import BookListSerializer, BookSerializer
 
 
 def home(request):
@@ -45,11 +44,8 @@ def books(request):
 
 
 def bookmarks(request):
-    queryset = request.user.bookmark_set.all()
-    serializer = BookmarkListSerializer(queryset)
-
     context = {
-        "bookmarks": serializer.data
+        "bookmarks": _bookmarks(request)
     }
     return render(request, 'traditional/pages/bookmarks.html', context)
 
