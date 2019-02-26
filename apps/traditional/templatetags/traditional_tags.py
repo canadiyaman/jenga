@@ -26,3 +26,12 @@ def books_breadcumbs():
             "url": reverse('traditional:books')
         }
     ]
+
+@register.simple_tag()
+def bookmarks_breadcumbs():
+    return [
+        {
+            "title": "Bookmarks",
+            "url": reverse('traditional:bookmarks')
+        }
+    ]

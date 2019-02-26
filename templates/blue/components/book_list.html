@@ -22,9 +22,24 @@
                     <td>{{ book.isbn13 }}</td>
                     <td><a href="{% url "traditional:book" book.isbn13 %}">Details</a></td>
                 </tr>
+                <tr>
+                    <td id="bookmark_{{ book.isbn13 }}">
+                        {% if book.bookmarked %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i onclick="addMyBookmarks({{ book.isbn13 }})"
+                               aria-label="{% trans "Click for add bookmarks" %}" class="far fa-star"></i>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <th class="text-center" colspan="5" scope="row">{% trans "Empty Result" %}</th>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
 {% include "components/paginate.html" with objects=books %}
+

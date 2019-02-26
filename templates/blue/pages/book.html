@@ -3,49 +3,19 @@
     {% book_details_breadcumbs book as breadcumbs %}
     {% include "components/breadcumb.html" with breadcumbs=breadcumbs %}
     <div class="container">
-        <h2>{{ book.title }}</h2>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <img src="{{ book.image }}" alt="{{ book.title }}">
-                    </div>
-                    <div class="col-lg-6">
-                        <table class="table">
-                            <tr>
-                                <td><i class="fa fa-female"></i> {% trans "Author" %}</td>
-                                <td>{{ book.authors }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-home">{% trans "Publisher" %}</i></td>
-                                <td>{{ book.publisher }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-money-bill-alt"></i> {% trans "Price" %}</td>
-                                <td>{{ book.price }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-file-alt"> {% trans "Page Count" %}</i></td>
-                                <td>{{ book.pages }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-clock"></i> {% trans "Year" %}</td>
-                                <td>{{ book.year }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-globe"></i> {% trans "Language" %}</td>
-                                <td>{{ book.language }}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h4>{% trans "Description" %}</h4>
-                        {{ book.desc }}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <span id="bookmark_{{ book.isbn13 }}" style="float: right" class="div">
+            {% if book.bookmarked %}
+                <i class="fas fa-star"></i>
+            {% else %}
+                <b>{% trans "Click for add bookmarks" %}</b>
+                <i style="cursor:pointer;" title="{% trans "Click for add bookmarks" %}"
+                   onclick="addMyBookmarks({{ book.isbn13 }})"
+                   class="far fa-star"></i>
+            {% endif %}
+        </span>
+        <h2>
+            {{ book.title }}
+        </h2>
+        {% include "components/book_detail.html" with book=book %}
     </div>
 {% endblock %}

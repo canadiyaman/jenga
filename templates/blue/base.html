@@ -26,7 +26,27 @@
         }
         $(document).ready(function () {
             $("input[name='q']").val($.urlParam('q'));
-        })
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        function addMyBookmarks(isbn13) {
+            $.ajax({
+                url: '/traditional/ajax/add-my-bookmarks',
+                data: {
+                    'isbn13': isbn13
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        alert(data.message);
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                    $('#bookmark_' + isbn13).html('<i class="fas fa-star"></i>');
+                }
+            });
+        };
     </script>
 </div>
 </body>
