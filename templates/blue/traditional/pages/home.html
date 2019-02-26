@@ -1,0 +1,37 @@
+{% extends "traditional/base.html" %}{% load i18n %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div style="float: none; margin: 0 auto;">
+                <img class="rounded-circle" height="300" width="500" src="
+                https://content.linkedin.com/content/dam/business/marketing-solutions/global/en_US/blog/2017/02/ClassicBook810Header.jpg">
+            </div>
+        </div>
+        <br>
+        <form method="get" action="{% url "traditional:search" %}">
+            <div class="row">
+                <div style="float: none; margin: 0 auto;" class="col-lg-6">
+                    <div class="form-group">
+                        <input name="q" type="text" class="form-control"
+                               placeholder="{% trans "Book name, author or isbn13 number" %}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <button class="btn btn-light form-control" type="submit">{% trans "Search Bookapp" %}</button>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <button class="btn btn-light form-control" type="submit">
+                            {% trans "I feel lucky myself" %}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -130,6 +130,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+  os.path.join(ROOT_DIR, 'static/'),
+)
+
 AUTH_USER_MODEL = 'user.User'
 
 DEFAULT_PER_PAGE_LIMIT = env.int('DEFAULT_PER_PAGE_LIMIT', 5)

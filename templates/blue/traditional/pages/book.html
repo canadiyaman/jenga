@@ -1,7 +1,7 @@
-{% extends "base.html" %}{% load i18n traditional_tags %}
+{% extends "traditional/base.html" %}{% load i18n traditional_tags %}
 {% block content %}
     {% book_details_breadcumbs book as breadcumbs %}
-    {% include "components/breadcumb.html" with breadcumbs=breadcumbs %}
+    {% include "traditional/components/breadcumb.html" with breadcumbs=breadcumbs %}
     <div class="container">
         <span id="bookmark_{{ book.isbn13 }}" style="float: right" class="div">
             {% if book.bookmarked %}
@@ -16,6 +16,6 @@
         <h2>
             {{ book.title }}
         </h2>
-        {% include "components/book_detail.html" with book=book %}
+        {% include "traditional/components/book_detail.html" with book=book %}
     </div>
 {% endblock %}

@@ -9,7 +9,7 @@ from apps.traditional.serializers import BookListSerializer, BookmarkListSeriali
 
 def home(request):
     context = {}
-    return render(request, 'pages/home.html', context)
+    return render(request, 'traditional/pages/home.html', context)
 
 
 def search(request):
@@ -20,7 +20,7 @@ def search(request):
     context = {
         "books": serializer.data,
     }
-    return render(request, 'pages/search.html', context)
+    return render(request, 'traditional/pages/search.html', context)
 
 
 def book(request, isbn13):
@@ -30,7 +30,7 @@ def book(request, isbn13):
     context = {
         "book": serializer.data
     }
-    return render(request, 'pages/book.html', context)
+    return render(request, 'traditional/pages/book.html', context)
 
 
 def books(request):
@@ -41,7 +41,7 @@ def books(request):
     context = {
         "books": serializer.data,
     }
-    return render(request, 'pages/books.html', context)
+    return render(request, 'traditional/pages/books.html', context)
 
 
 def bookmarks(request):
@@ -51,7 +51,7 @@ def bookmarks(request):
     context = {
         "bookmarks": serializer.data
     }
-    return render(request, 'pages/bookmarks.html', context)
+    return render(request, 'traditional/pages/bookmarks.html', context)
 
 
 def add_my_bookmarks(request):

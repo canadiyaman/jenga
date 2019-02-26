@@ -17,11 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
-from apps.traditional.views import home
+from jenga.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # TODO: Change home view
     url('^$', home, name='home'),
     url('^traditional/', include(('apps.traditional.urls', 'traditional'), namespace='traditional')),
     url('^v1/', include(('apps.modern.urls', 'modern'), namespace='v1'))
