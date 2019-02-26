@@ -131,9 +131,21 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-  os.path.join(ROOT_DIR, 'static/'),
+    os.path.join(ROOT_DIR, 'static/'),
 )
 
 AUTH_USER_MODEL = 'user.User'
 
 DEFAULT_PER_PAGE_LIMIT = env.int('DEFAULT_PER_PAGE_LIMIT', 5)
+
+DEFAULT_CACHE_TIMEOUT = 60 * env.bool('CACHE_TIME_TYPE_MINUTES', default=1)  # One Minute
+
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.RedisCache",
+        "LOCATION": "127.0.0.1:6379",
+        "OPTIONS": {
+            "DB": 1
+        },
+    }
+}

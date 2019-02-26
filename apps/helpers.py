@@ -1,8 +1,12 @@
 import requests
 
 from django.conf import settings
+from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.http import Http404
+from django.utils.text import slugify
+
+from apps.traditional.serializers import BookmarkListSerializer
 
 
 class Client(object):
@@ -42,23 +46,60 @@ class Adapter(object):
         return paginator.page(page)
 
     def search(self, q, page=1, paginated=True):
-        response = self.client.search(q)
-        books = response['books']
+        key = 'search_%s' % slugify(q)
+        books = self.get_from_cache(key)
+        if not books:
+            response = self.client.search(q)
+            books = response['books']
+            cache.set(key, books, settings.DEFAULT_CACHE_TIMEOUT)
+
         if paginated:
             books = self.paginate(books, page)
         return books
 
     def book(self, isbn13):
-        response = self.client.book(isbn13)
-        return response
+        key = 'book_%s' % isbn13
+        book = self.get_from_cache(key)
+
+        if not book:
+            book = self.client.book(isbn13)
+            cache.set(key, book, settings.DEFAULT_CACHE_TIMEOUT)
+
+        return book
 
     def books(self, page=1, paginated=True):
-        response = self.client.books()
-        books = response['books']
+        key = 'book_news'
+        books = self.get_from_cache(key)
+
+        if not books:
+            response = self.client.books()
+            books = response['books']
+            cache.set(key, books, 60 * 60)
+
         if paginated:
             books = self.paginate(books, page)
         return books
 
+    def get_from_cache(self, key):
+        return cache.get(key)
+
 
 def get_adapter():
     return Adapter()
+
+
+def _generate_cache_key(app_name, user_id):
+    return "%s_%s" % (app_name, user_id)
+
+
+def _bookmarks(request):
+    key = _generate_cache_key('bookmarks', request.user.id)
+
+    bookmarks = cache.get(key)
+    if not bookmarks:
+        queryset = request.user.bookmark_set.all()
+        serializer = BookmarkListSerializer(queryset)
+        bookmarks = serializer.data
+        cache.set(key, bookmarks, settings.DEFAULT_CACHE_TIMEOUT)
+
+    return bookmarks
