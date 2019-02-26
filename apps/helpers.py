@@ -46,24 +46,18 @@ class Adapter(object):
         books = response['books']
         if paginated:
             books = self.paginate(books, page)
-        return {
-            "books": books
-        }
+        return books
 
     def book(self, isbn13):
         response = self.client.book(isbn13)
-        return {
-            "book": response
-        }
+        return response
 
     def books(self, page=1, paginated=True):
         response = self.client.books()
         books = response['books']
         if paginated:
             books = self.paginate(books, page)
-        return {
-            "books": books
-        }
+        return books
 
 
 def get_adapter():

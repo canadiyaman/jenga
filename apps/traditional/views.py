@@ -1,6 +1,10 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render
 
+from apps.bookmark.models import Bookmark
 from apps.helpers import get_adapter
+from apps.traditional.serializers import BookListSerializer, BookmarkListSerializer, \
+    BookSerializer
 
 
 def home(request):
@@ -10,19 +14,53 @@ def home(request):
 
 def search(request):
     q, page = request.GET.get('q', ""), request.GET.get('page', 1)
-    adapter = get_adapter()
-    results = adapter.search(q, page)
-    return render(request, 'pages/search.html', results)
+    results = get_adapter().search(q, page)
+
+    serializer = BookListSerializer(results, request)
+    context = {
+        "books": serializer.data,
+    }
+    return render(request, 'pages/search.html', context)
 
 
 def book(request, isbn13):
-    adapter = get_adapter()
-    result = adapter.book(isbn13)
-    return render(request, 'pages/book.html', result)
+    book = get_adapter().book(isbn13)
+    serializer = BookSerializer(book, request)
+
+    context = {
+        "book": serializer.data
+    }
+    return render(request, 'pages/book.html', context)
 
 
 def books(request):
-    adapter = get_adapter()
     page = request.GET.get('page', 1)
-    result = adapter.books(page)
-    return render(request, 'pages/books.html', result)
+    results = get_adapter().books(page)
+
+    serializer = BookListSerializer(results, request)
+    context = {
+        "books": serializer.data,
+    }
+    return render(request, 'pages/books.html', context)
+
+
+def bookmarks(request):
+    queryset = request.user.bookmark_set.all()
+    serializer = BookmarkListSerializer(queryset)
+
+    context = {
+        "bookmarks": serializer.data
+    }
+    return render(request, 'pages/bookmarks.html', context)
+
+
+def add_my_bookmarks(request):
+    isbn13 = request.GET.get('isbn13')
+    book = get_adapter().book(isbn13)
+    success, message = Bookmark.add_my_bookmarks(request.user, book)
+
+    response = {
+        "success": success,
+        "message": message
+    }
+    return JsonResponse(response)
