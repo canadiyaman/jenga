@@ -102,4 +102,7 @@ def _bookmarks(request):
         bookmarks = serializer.data
         cache.set(key, bookmarks, settings.DEFAULT_CACHE_TIMEOUT)
 
-    return bookmarks
+    page = request.GET.get('page', 1)
+    paginator = Paginator(bookmarks, settings.DEFAULT_PER_PAGE_LIMIT, page)
+    return paginator.page(page)
+
