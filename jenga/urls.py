@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url('^$', home, name='home'),
     url('^traditional/', include(('apps.traditional.urls', 'traditional'), namespace='traditional')),
-    url('^v1/', include(('apps.modern.urls', 'modern'), namespace='v1'))
+    url('^api/', include(('apps.modern.urls', 'modern'), namespace='api'))
 ]
