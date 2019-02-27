@@ -39,5 +39,5 @@ class BookDetailAPIView(APIView):
 class BookListAPIView(APIView):
     def get(self, request):
         adapter = get_adapter()
-        results = adapter.books()
-        return Response(results)
+        results = adapter.books(paginated=False)
+        return Response({"books": results})

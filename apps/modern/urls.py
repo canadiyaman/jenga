@@ -7,7 +7,7 @@ from apps.modern.views import BookSearchAPIView, BookDetailAPIView, BookListAPIV
 router = routers.DefaultRouter(trailing_slash=False)
 
 urlpatterns = [
-    url('^books$', BookListAPIView.as_view(), 'books'),
+    url('^books$', BookListAPIView.as_view(), name='books'),
     url('^books/(?P<isbn13>[^/.]+)$', BookDetailAPIView.as_view(), name='book_details'),
     url('^books/search$', BookSearchAPIView.as_view(), name='search'),
 ]
