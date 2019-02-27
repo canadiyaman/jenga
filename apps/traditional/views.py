@@ -1,5 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.http.response import JsonResponse
 from django.shortcuts import render
+from django.urls import reverse
 
 from apps.bookmark.models import Bookmark
 from apps.helpers import get_adapter, _bookmarks
@@ -14,6 +16,12 @@ def home(request):
 def search(request):
     q, page = request.GET.get('q', ""), request.GET.get('page', 1)
     results = get_adapter().search(q, page)
+
+    is_lucky = request.GET.get('lucky', False)
+    if is_lucky and len(results) > 0:
+        isbn13 = results[0]['isbn13']
+        url = reverse('traditional:book', kwargs={"isbn13": isbn13})
+        return HttpResponseRedirect(url)
 
     serializer = BookListSerializer(results, request)
     context = {
