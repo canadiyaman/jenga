@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.contrib.auth import login, get_user_model
 from django.utils.deprecation import MiddlewareMixin
 
@@ -13,6 +16,7 @@ class LoginMiddleware(MiddlewareMixin):
         try:
             user = UserModel.objects.get(ip=ip)
         except UserModel.DoesNotExist:
-            user = UserModel.objects.create(ip=ip)
-
+            username = ''.join(
+                random.choice(string.ascii_uppercase + string.digits) for x in range(10))
+            user = UserModel.objects.create(ip=ip, username=username)
         login(request, user)
