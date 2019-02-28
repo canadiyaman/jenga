@@ -3,8 +3,8 @@ branch-defaults:
     environment: Jenga-env
 environment-defaults:
   Jenga-env:
-    branch: master
-    repository: origin
+    branch: null
+    repository: null
 global:
   application_name: jenga
   default_ec2_keyname: null
