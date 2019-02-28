@@ -20,10 +20,21 @@
     
     $ pip install -r requirements.txt
     
- * Create .env file for your local settings.
+ * Create .env file for your local settings and configure .env file.
  
  
     $ cp .env-example .env
+    
+ * Create Database on terminal (or you can create with PgAdmin3~4 It's up to you)
+ 
+    
+    $ psql postgres
+    postgres=# create role {database_user} with password '{database_password}';
+    postgres=# alter role canadiyaman createrole superuser;
+    postgres=# alter role canadiyaman createrole login;
+    postgres=# create database {database_name};
+    postgres=# grant all privileges on database {database_name} to {database_user};
+    postgres=# \q
     
  * Make Migration if everythings is good until now.
  

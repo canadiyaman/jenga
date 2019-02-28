@@ -85,11 +85,14 @@ WSGI_APPLICATION = 'jenga.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(ROOT_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DATABASE_NAME', default='jenga'),
+        'USER': env('DATABASE_USER', default='canadiyaman'),
+        'PASSWORD': env('PASSWORD', default='hebelehubele'),
+        'HOST': env('DATABASE_HOST', default='127.0.0.1'),
+        'DATABASE_PORT': env('DATABASE_PORT', default='5432')
     }
 }
 
