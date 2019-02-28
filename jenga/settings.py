@@ -19,12 +19,12 @@ APPS_DIR = ROOT_DIR.path('apps')
 env = environ.Env()
 env.read_env("%s/%s" % (ROOT_DIR, '.env'))
 
-DEBUG = False
+DEBUG = env.bool('DEBUG', False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', default='f312ex3fs*ed-ra%9ft()xjb=$d&n0e@$awm4pwvt+d$9p%19z')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['jenga-env.pmpg82nvv4.eu-west-3.elasticbeanstalk.com', '127.0.0.1']
 
 # Application definition
 DJANGO_APPS = [
@@ -146,6 +146,51 @@ CACHES = {
         "LOCATION": "127.0.0.1:6379",
         "OPTIONS": {
             "DB": 1
+        },
+    }
+}
+
+ADMINS = (
+    ('Can ADIYAMAN', 'canacan2170@gmail.com'),)
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST', default='smtp.mailtrap.io')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='c4eb8c188d5e05')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='c59ce5dcbb1613')
+EMAIL_PORT = env('EMAIL_PORT', default='2525')
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
+DEFAULT_FROM_EMAIL = 'info@jenga-bookapp.com'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins', 'console'],
+            'level': 'DEBUG',
         },
     }
 }
