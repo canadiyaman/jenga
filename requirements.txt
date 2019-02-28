@@ -1,5 +1,6 @@
 Django==2.1.7
 django-environ==0.4.5
-requests==2.21.0
+requests==2.20.1
 djangorestframework==3.9.1
 django-redis-cache==2.0.0
+awsebcli

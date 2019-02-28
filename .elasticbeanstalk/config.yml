@@ -3,10 +3,10 @@ branch-defaults:
     environment: Jenga-env
 environment-defaults:
   Jenga-env:
-    branch: null
-    repository: null
+    branch: master
+    repository: origin
 global:
-  application_name: Jenga
+  application_name: jenga
   default_ec2_keyname: null
   default_platform: arn:aws:elasticbeanstalk:eu-west-3::platform/Python 3.6 running
     on 64bit Amazon Linux/2.8.1
