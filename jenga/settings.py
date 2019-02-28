@@ -19,12 +19,12 @@ APPS_DIR = ROOT_DIR.path('apps')
 env = environ.Env()
 env.read_env("%s/%s" % (ROOT_DIR, '.env'))
 
-DEBUG = True
+DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', default='f312ex3fs*ed-ra%9ft()xjb=$d&n0e@$awm4pwvt+d$9p%19z')
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 DJANGO_APPS = [
