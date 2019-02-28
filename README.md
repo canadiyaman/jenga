@@ -21,7 +21,14 @@
  
     $ `cp .env-example .env`
  5. **Create Database on terminal (or you can create with PgAdmin3~4 It's up to you)**
- 
+ 	 * If you get psql: could not connect to server: error
+	 
+ 	   $ `sudo chown -R postgres:postgres /var/lib/postgresql/9.6`
+	   
+	   $ `sudo chmod -R u=rwX,go= /var/lib/postgresql/9.6`
+	  
+	 * Now you can contunue create database
+	 
 	   $ `psql postgres`
     
     `postgres=# create role {database_user} with password '{database_password}';`
