@@ -89,8 +89,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env('DATABASE_NAME', default='jenga'),
-        'USER': env('DATABASE_USER', default='canadiyaman'),
-        'PASSWORD': env('PASSWORD', default='hebelehubele'),
+        'USER': env('DATABASE_USER', default='jenga'),
+        'PASSWORD': env('PASSWORD', default='123456'),
         'HOST': env('DATABASE_HOST', default='127.0.0.1'),
         'DATABASE_PORT': env('DATABASE_PORT', default='5432')
     }
