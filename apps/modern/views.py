@@ -1,10 +1,12 @@
+from django.shortcuts import render
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets, mixins
 from apps.helpers import get_adapter
 
-
+def home(request):
+    return render(request, 'modern/pages/preparing.html', {})
 
 class BoooksViewset(viewsets.GenericViewSet):
     def get(self, request, *args, **kwargs):
