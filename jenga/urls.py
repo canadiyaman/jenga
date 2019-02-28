@@ -18,10 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from jenga.views import home
+from apps.modern.views import home as modern_home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('^$', home, name='home'),
+
+    # TODO: Change home after finish modern app.
+    url('^modern$', modern_home, name="modern_home"),
     url('^traditional/', include(('apps.traditional.urls', 'traditional'), namespace='traditional')),
     url('^api/', include(('apps.modern.urls', 'modern'), namespace='api'))
 ]
