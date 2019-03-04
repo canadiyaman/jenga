@@ -1,5 +1,9 @@
 # jenga_bookapp
 > WARNING: This document tested only on MacOS High Sierra and Ubuntu 18.
+
+> You can test it on live! [Click here.](http://jenga-env.pmpg82nvv4.eu-west-3.elasticbeanstalk.com)
+
+
 ## Manuel Setup
 
 1. **Install project with the following command to your computer.**
