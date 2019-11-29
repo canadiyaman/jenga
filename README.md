@@ -31,7 +31,7 @@
 	   
 	   $ `sudo chmod -R u=rwX,go= /var/lib/postgresql/9.6`
 	  
-	 * Now you can contunue create database
+	 * Now you can continue create database
 	 
 	   $ `psql postgres`
     
@@ -69,10 +69,11 @@
  
 	 $ `eb ssh`
 	
-2. **Create .env-example file.**
+2. **Create .env file use with .env-example file.**
 
-	$ `sudo nano .env-example`
-3. **Your .env-example must be like below. Fill with your settings save and exit(CTRL+X).**
+	$ `cp .env-example .env`
+	$ `nano .env`
+3. **Your .env must be like below. Fill with your settings save and exit(CTRL+X).**
 
 	  ```
 	  THEME=blue
